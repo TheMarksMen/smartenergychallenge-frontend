@@ -1,15 +1,21 @@
-import { AppBar, Toolbar, IconButton, Typography, makeStyles} from '@material-ui/core';
+import {
+    AppBar,
+    Toolbar,
+    IconButton,
+    Typography,
+    makeStyles,
+} from '@material-ui/core';
 import MenuIcon from '@material-ui/icons/Menu';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 
 const useStyles = makeStyles((theme) => ({
     root: {
-      flexGrow: 1,
+        flexGrow: 1,
     },
     title: {
-      flexGrow: 1,
+        flexGrow: 1,
     },
-  }));
+}));
 
 function Navbar() {
     const c = useStyles();
@@ -21,7 +27,7 @@ function Navbar() {
                         <MenuIcon />
                     </IconButton>
                     <Typography variant="h6" className={c.title}>
-                       Smart Energy Challenge 
+                        Smart Energy Challenge
                     </Typography>
                     <IconButton edge="end" color="inherit" aria-label="profile">
                         <AccountCircle />
