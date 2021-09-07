@@ -1,7 +1,8 @@
 import Navbar from '../Navbar/Navbar';
-import { Paper, Grid, Box, ThemeProvider, Typography } from '@material-ui/core';
+import { Paper, Grid, Box, ThemeProvider, Typography, Button, MenuItem, Menu} from '@material-ui/core';
 import { createTheme } from '@material-ui/core/styles';
 import { blue, indigo, red } from '@material-ui/core/colors';
+import React from 'react';
 import SimpleChart from '../SimpleChart/SimpleChart';
 import '@fontsource/roboto';
 
@@ -65,6 +66,23 @@ function App() {
             amt: 2100,
         },
     ];
+
+    const [anchor, setAnchor] = React.useState(null);
+    const [option, setOption] = React.useState("Power");
+
+    const handleClick = (event) => {
+        setAnchor(event.currentTarget);
+    };
+
+    const handleListItemClick = (event) => {
+        setOption(event.currentTarget.textContent);
+        console.log(event.currentTarget);
+    };
+
+    const handleClose = () => {
+        setAnchor(null);
+    };
+
     return (
         <div className="App">
             <ThemeProvider theme={theme}>
@@ -79,14 +97,35 @@ function App() {
                 >
                     <Box display="inline-block">
                         <Paper style={{ padding: '3em', height: '' }}>
-                            <Typography
-                                variant="h4"
-                                align="center"
-                                style={{ marginBottom: '1.5em' }}
+                            <Grid
+                                container
+                                justifyContent="center"
+                                spacing={5}
+                                justify="center"
+                                direction="column-reverse"
                             >
-                                Power
-                            </Typography>
-                            <SimpleChart data={data}></SimpleChart>
+                                <Button aria-controls="simple-menu" aria-haspopup="true" onClick={handleClick}>
+                                    Select Value 
+                                </Button>
+                                <SimpleChart data={data}></SimpleChart>
+                                <Menu
+                                    id="menu"
+                                    anchorEl={anchor}
+                                    keepMounted
+                                    open={Boolean(anchor)}
+                                    onClose={handleClose}
+                                >
+                                    <MenuItem onClick={(e) => { handleClose(e); handleListItemClick(e); }}>Power</MenuItem>
+                                    <MenuItem onClick={(e) => { handleClose(e); handleListItemClick(e); }}>Peak Voltage</MenuItem>
+                                    <MenuItem onClick={(e) => { handleClose(e); handleListItemClick(e); }}>RMS Current</MenuItem>
+                                </Menu>
+                                <Typography
+                                     align="center"
+                                     variant="h4"
+                                >
+                                    { option }
+                                </Typography>
+                            </Grid>
                         </Paper>
                     </Box>
                 </Grid>
