@@ -1,9 +1,18 @@
-import { Paper, Grid, Box, ThemeProvider, Typography, Button, MenuItem, Menu} from '@material-ui/core';
+import React from 'react';
+import {
+    Paper,
+    Grid,
+    Box,
+    ThemeProvider,
+    Typography,
+    Button,
+    MenuItem,
+    Menu,
+} from '@material-ui/core';
 import { createTheme } from '@material-ui/core/styles';
 import { indigo, red } from '@material-ui/core/colors';
-import React from 'react';
 import SimpleChart from '../SimpleChart/SimpleChart';
-import Navbar from '../Navbar/Navbar';
+import Navbar from '../Navigation/Navbar';
 import '@fontsource/roboto';
 
 const theme = createTheme({
@@ -68,7 +77,7 @@ function App() {
     ];
 
     const [anchor, setAnchor] = React.useState(null);
-    const [option, setOption] = React.useState("Power");
+    const [option, setOption] = React.useState('Power');
 
     const handleClick = (event) => {
         setAnchor(event.currentTarget);
@@ -104,8 +113,12 @@ function App() {
                                 justify="center"
                                 direction="column-reverse"
                             >
-                                <Button aria-controls="simple-menu" aria-haspopup="true" onClick={handleClick}>
-                                    Select Value 
+                                <Button
+                                    aria-controls="simple-menu"
+                                    aria-haspopup="true"
+                                    onClick={handleClick}
+                                >
+                                    Select Value
                                 </Button>
                                 <SimpleChart data={data}></SimpleChart>
                                 <Menu
@@ -115,15 +128,33 @@ function App() {
                                     open={Boolean(anchor)}
                                     onClose={handleClose}
                                 >
-                                    <MenuItem onClick={(e) => { handleClose(e); handleListItemClick(e); }}>Power</MenuItem>
-                                    <MenuItem onClick={(e) => { handleClose(e); handleListItemClick(e); }}>Peak Voltage</MenuItem>
-                                    <MenuItem onClick={(e) => { handleClose(e); handleListItemClick(e); }}>RMS Current</MenuItem>
+                                    <MenuItem
+                                        onClick={(e) => {
+                                            handleClose(e);
+                                            handleListItemClick(e);
+                                        }}
+                                    >
+                                        Power
+                                    </MenuItem>
+                                    <MenuItem
+                                        onClick={(e) => {
+                                            handleClose(e);
+                                            handleListItemClick(e);
+                                        }}
+                                    >
+                                        Peak Voltage
+                                    </MenuItem>
+                                    <MenuItem
+                                        onClick={(e) => {
+                                            handleClose(e);
+                                            handleListItemClick(e);
+                                        }}
+                                    >
+                                        RMS Current
+                                    </MenuItem>
                                 </Menu>
-                                <Typography
-                                     align="center"
-                                     variant="h4"
-                                >
-                                    { option }
+                                <Typography align="center" variant="h4">
+                                    {option}
                                 </Typography>
                             </Grid>
                         </Paper>
