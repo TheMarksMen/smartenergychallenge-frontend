@@ -1,9 +1,9 @@
-import Navbar from '../Navbar/Navbar';
 import { Paper, Grid, Box, ThemeProvider, Typography, Button, MenuItem, Menu} from '@material-ui/core';
 import { createTheme } from '@material-ui/core/styles';
-import { blue, indigo, red } from '@material-ui/core/colors';
+import { indigo, red } from '@material-ui/core/colors';
 import React from 'react';
 import SimpleChart from '../SimpleChart/SimpleChart';
+import Navbar from '../Navbar/Navbar';
 import '@fontsource/roboto';
 
 const theme = createTheme({
