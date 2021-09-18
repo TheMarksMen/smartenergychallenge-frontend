@@ -4,7 +4,6 @@ import {
     Drawer,
     Button,
     List,
-    ListItem,
     ListItemIcon,
     ListItemText,
     ListItemButton,
@@ -17,7 +16,8 @@ import {
     Dashboard,
     Settings,
     DeviceHub,
-    Add
+    Add,
+    GitHub
 } from '@mui/icons-material';
 
 export default function Sidebars(props) {
@@ -49,6 +49,12 @@ export default function Sidebars(props) {
                                 <Settings />
                             </ListItemIcon>
                             <ListItemText primary={'Settings'} />
+                        </ListItemButton>
+                        <ListItemButton key={'GitHub'}>
+                            <ListItemIcon>
+                                <GitHub />
+                            </ListItemIcon>
+                            <ListItemText primary={'View on GitHub'} />
                         </ListItemButton>
                     </List>
                 </Box>
