@@ -8,9 +8,9 @@ import {
     Button,
     MenuItem,
     Menu,
-} from '@material-ui/core';
-import { createTheme } from '@material-ui/core/styles';
-import { indigo, red } from '@material-ui/core/colors';
+} from '@mui/material';
+import { createTheme } from '@mui/material/styles';
+import { indigo, red } from '@mui/material/colors';
 import SimpleChart from '../SimpleChart/SimpleChart';
 import Navbar from '../Navigation/Navbar';
 import '@fontsource/roboto';

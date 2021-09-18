@@ -1,6 +1,7 @@
 import * as React from 'react';
-import { AppBar, Toolbar, IconButton, Typography, makeStyles } from '@material-ui/core';
-import { Menu, AccountCircle } from '@material-ui/icons';
+import { AppBar, Toolbar, IconButton, Typography } from '@mui/material';
+import { makeStyles } from '@mui/styles';
+import { Menu, AccountCircle } from '@mui/icons-material';
 import Sidebars from './Sidebars';
 
 const useStyles = makeStyles((theme) => ({

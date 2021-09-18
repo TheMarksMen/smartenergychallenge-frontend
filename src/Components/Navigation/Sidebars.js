@@ -1,10 +1,29 @@
 import * as React from 'react';
-import { Drawer, Button, List, ListItem, ListItemIcon, ListItemText, Grid, Box } from '@material-ui/core';
-import { AccountCircle, Dashboard, Settings } from '@material-ui/icons';
+import {
+    Divider,
+    Drawer,
+    Button,
+    List,
+    ListItem,
+    ListItemIcon,
+    ListItemText,
+    ListItemButton,
+    Grid,
+    Box,
+    Typography,
+} from '@mui/material';
+import {
+    AccountCircle,
+    Dashboard,
+    Settings,
+    DeviceHub,
+    Add
+} from '@mui/icons-material';
 
 export default function Sidebars(props) {
     return (
-        <>
+        <React.Fragment>
+            {/* Left hand menu for routes */}
             <Drawer
                 anchor={'left'}
                 open={props.state['left']}
@@ -19,21 +38,23 @@ export default function Sidebars(props) {
                     onKeyDown={props.toggle('left', false)}
                 >
                     <List>
-                        <ListItem button key={'Dashboard'}>
+                        <ListItemButton key={'Dashboard'}>
                             <ListItemIcon>
                                 <Dashboard />
                             </ListItemIcon>
                             <ListItemText primary={'Dashboard'} />
-                        </ListItem>
-                        <ListItem button key={'Settings'}>
+                        </ListItemButton>
+                        <ListItemButton key={'Settings'}>
                             <ListItemIcon>
                                 <Settings />
                             </ListItemIcon>
                             <ListItemText primary={'Settings'} />
-                        </ListItem>
+                        </ListItemButton>
                     </List>
                 </Box>
             </Drawer>
+
+            {/* Right hand user panel */}
             <Drawer
                 anchor={'right'}
                 open={props.state['right']}
@@ -53,10 +74,51 @@ export default function Sidebars(props) {
                         direction="column"
                         justifyContent="center"
                         alignItems="center"
-                        spacing={4}
+                        spacing={2}
                     >
                         <Grid item>
-                            <AccountCircle fontSize="large" />
+                            <Box 
+                                height="100%"
+                                display="flex"
+                                justifyContent="center"
+                                alignItems="center"
+                                flexDirection="column"
+                            >
+                                <AccountCircle fontSize="large" />
+                                <Typography variant="h6">
+                                    Alexander Bailey
+                                </Typography>
+                            </Box>
+                        </Grid>
+                        <Grid item>
+                            <Typography 
+                                variant="h6" 
+                                css={{
+                                    margin: '0', 
+                                    padding: '0'
+                                }}
+                            >
+                                Devices
+                            </Typography>
+                        </Grid>
+                        <Grid item>
+                            <List>
+                                <Divider />
+                                <ListItemButton>
+                                    <ListItemIcon>
+                                        <DeviceHub />
+                                    </ListItemIcon>
+                                    <ListItemText
+                                        primary={'Prototype Device'}
+                                    />
+                                </ListItemButton>
+                                <ListItemButton>
+                                    <ListItemIcon>
+                                        <Add />
+                                    </ListItemIcon>
+                                    <ListItemText primary={'Add an Item'} />
+                                </ListItemButton>
+                            </List>
                         </Grid>
                         <Grid item>
                             <Button variant="contained" color="primary">
@@ -66,6 +128,6 @@ export default function Sidebars(props) {
                     </Grid>
                 </Box>
             </Drawer>
-        </>
+        </React.Fragment>
     );
 }

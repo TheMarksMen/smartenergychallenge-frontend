@@ -1,5 +1,6 @@
+import * as React from 'react';
 import { LineChart, CartesianGrid, Line, XAxis, YAxis } from 'recharts';
-import { useTheme } from '@material-ui/core/styles';
+import { useTheme } from '@mui/styles';
 
 function SimpleChart(props) {
     const theme = useTheme();
