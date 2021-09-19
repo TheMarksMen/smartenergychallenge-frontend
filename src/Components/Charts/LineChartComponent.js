@@ -12,11 +12,6 @@ function LineChartComponent(props) {
             <CartesianGrid stroke="#eee" strokeDasharray="5 5" />
             <Line
                 type="monotone"
-                dataKey="uv"
-                stroke={theme.palette.primary.main}
-            />
-            <Line
-                type="monotone"
                 dataKey="pv"
                 stroke={theme.palette.secondary.main}
             />
