@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
     Menu,
     MenuItem,
@@ -12,11 +12,16 @@ import GridLayout from 'react-grid-layout';
 import { Add } from '@mui/icons-material';
 
 function Dashboard() {
-    const layout = [
-      {i: 'c', x: 6, y: 0, w: 6, h: 4},
-    ];
+    const [layout, setLayout] = useState([{i: '0', x: 6, y: 0, w: 6, h: 4}]);
+    const [gridElements, setGridElements] = useState([
+        <div key="0">
+            <Chart>
+                <AreaChart data={powerData} />
+            </Chart>
+        </div>
+    ]);
 
-    const [anchorEl, setAnchorEl] = React.useState(null);
+    const [anchorEl, setAnchorEl] = useState(null);
     const open = Boolean(anchorEl);
 
     const handleClick = (event) => {
@@ -26,18 +31,25 @@ function Dashboard() {
         setAnchorEl(null);
     };
 
-    const addChart = (event) => {
+    const addChart = () => {
+        setGridElements([
+            ...gridElements,
+            <div key={gridElements.length}>
+                <Chart>
+                    <AreaChart data={powerData} />
+                </Chart>
+            </div>
+        ]);
+        setLayout([
+            {i: layout.length, x: 0, y: 0, w:6, h:4 }
+        ])
         handleClose();
     };
 
     return (
         <div className="App">
             <GridLayout className="layout" layout={layout} cols={12} rowHeight={30} width={1200}>
-                <div key="c">
-                    <Chart>
-                        <AreaChart data={powerData} />
-                    </Chart>
-                </div>
+                { gridElements }
             </GridLayout>
 
             <Fab
@@ -52,8 +64,8 @@ function Dashboard() {
             </Fab>
             <div>
                 <Menu
-                    id="demo-positioned-menu"
-                    aria-labelledby="demo-positioned-button"
+                    id="positioned-menu"
+                    aria-labelledby="positioned-button"
                     anchorEl={anchorEl}
                     open={open}
                     onClose={handleClose}
