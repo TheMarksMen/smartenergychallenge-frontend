@@ -9,15 +9,13 @@ import {
     MenuItem,
     Menu,
 } from '@mui/material';
-import SimpleChart from '../Charts/LineChartComponent';
+import SimpleChart from '../Charts/AreaChartComponent';
 import { powerData } from './Stud';
 import '@fontsource/roboto';
 
 function Dashboard() {
     const [anchor, setAnchor] = React.useState(null);
     const [option, setOption] = React.useState('Power');
-
-
 
     const handleClick = (event) => {
         setAnchor(event.currentTarget);
