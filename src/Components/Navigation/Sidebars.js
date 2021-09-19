@@ -4,6 +4,7 @@ import {
     Drawer,
     Button,
     List,
+    ListItem,
     ListItemIcon,
     ListItemText,
     ListItemButton,
@@ -19,8 +20,18 @@ import {
     Add,
     GitHub
 } from '@mui/icons-material';
+import {
+    useTheme
+} from '@mui/styles';
+import {
+    css
+} from '@emotion/react';
+import {
+    Link
+} from "react-router-dom";
 
 export default function Sidebars(props) {
+    const theme = useTheme();
     return (
         <React.Fragment>
             {/* Left hand menu for routes */}
@@ -38,24 +49,32 @@ export default function Sidebars(props) {
                     onKeyDown={props.toggle('left', false)}
                 >
                     <List>
-                        <ListItemButton key={'Dashboard'}>
+                        <ListItemButton component={Link} to='/' key={'Dashboard'}>
                             <ListItemIcon>
                                 <Dashboard />
                             </ListItemIcon>
                             <ListItemText primary={'Dashboard'} />
                         </ListItemButton>
-                        <ListItemButton key={'Settings'}>
+                        <ListItemButton component={Link} to='/settings' key={'Settings'}>
                             <ListItemIcon>
                                 <Settings />
                             </ListItemIcon>
                             <ListItemText primary={'Settings'} />
                         </ListItemButton>
-                        <ListItemButton key={'GitHub'}>
-                            <ListItemIcon>
-                                <GitHub />
-                            </ListItemIcon>
-                            <ListItemText primary={'View on GitHub'} />
-                        </ListItemButton>
+                        <a 
+                            style={{
+                                textDecoration: 'none', 
+                                color: 'black'
+                            }}
+                            href="https://github.com/TheMarksMen"
+                        >
+                            <ListItemButton key={'GitHub'}>
+                                <ListItemIcon>
+                                    <GitHub />
+                                </ListItemIcon>
+                                <ListItemText primary={'View on GitHub'} />
+                            </ListItemButton>
+                        </a>
                     </List>
                 </Box>
             </Drawer>

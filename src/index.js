@@ -1,12 +1,35 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import {
+    BrowserRouter as Router, 
+    Switch,
+    Route,
+    Link
+} from 'react-router-dom';
+import { createMuiTheme, ThemeProvider } from '@mui/material/styles';
+import { indigo, red } from '@mui/material/colors';
+
 import './index.css';
-import App from './Components/App/App';
+import Dashboard from './Components/Dashboard/Dashboard';
+import SettingsPage from './Components/SettingsPage/SettingsPage';
+import Navbar from './Components/Navigation/Navbar';
 import reportWebVitals from './reportWebVitals';
+
+const theme = createMuiTheme();
 
 ReactDOM.render(
     <React.StrictMode>
-        <App />
+        <ThemeProvider theme={theme}>
+            <Router>
+                <Navbar />
+                <Route exact path="/">
+                    <Dashboard />
+                </Route>
+                <Route path="/settings">
+                    <SettingsPage />
+                </Route>
+            </Router>
+        </ThemeProvider>
     </React.StrictMode>,
     document.getElementById('root')
 );
