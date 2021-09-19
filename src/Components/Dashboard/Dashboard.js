@@ -9,7 +9,7 @@ import {
     MenuItem,
     Menu,
 } from '@mui/material';
-import SimpleChart from '../SimpleChart/SimpleChart';
+import SimpleChart from '../Charts/LineChartComponent';
 import '@fontsource/roboto';
 
 function Dashboard() {

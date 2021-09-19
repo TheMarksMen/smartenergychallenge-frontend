@@ -2,7 +2,7 @@ import * as React from 'react';
 import { LineChart, CartesianGrid, Line, XAxis, YAxis } from 'recharts';
 import { useTheme } from '@mui/styles';
 
-function SimpleChart(props) {
+function LineChartComponent(props) {
     const theme = useTheme();
     const { data } = props;
     return (
@@ -24,4 +24,4 @@ function SimpleChart(props) {
     );
 }
 
-export default SimpleChart;
+export default LineChartComponent;
