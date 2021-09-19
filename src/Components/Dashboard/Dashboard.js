@@ -4,15 +4,15 @@ import {
     MenuItem,
     Fab
 } from '@mui/material';
+import { Add } from '@mui/icons-material';
 import '@fontsource/roboto';
 import Chart from '../Charts/Chart';
 import AreaChart from '../Charts/AreaChartComponent';
+import GridSystem from './GridSystem';
 import { powerData } from './Stud';
-import GridLayout from 'react-grid-layout';
-import { Add } from '@mui/icons-material';
 
 function Dashboard() {
-    const [layout, setLayout] = useState([{i: '0', x: 6, y: 0, w: 6, h: 4}]);
+    const [layout, setLayout] = useState([{i: '0', x: 6, y: 0, w: 5, h: 3}]);
     const [gridElements, setGridElements] = useState([
         <div key="0">
             <Chart>
@@ -48,9 +48,9 @@ function Dashboard() {
 
     return (
         <div className="App">
-            <GridLayout className="layout" layout={layout} cols={12} rowHeight={30} width={1200}>
+            <GridSystem layout={{lg: layout}}>
                 { gridElements }
-            </GridLayout>
+            </GridSystem>
 
             <Fab
                 onClick={handleClick}
