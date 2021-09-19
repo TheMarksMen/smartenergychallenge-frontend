@@ -18,11 +18,16 @@ function Dashboard() {
 
     const [anchorEl, setAnchorEl] = React.useState(null);
     const open = Boolean(anchorEl);
+
     const handleClick = (event) => {
         setAnchorEl(event.currentTarget);
     };
     const handleClose = () => {
         setAnchorEl(null);
+    };
+
+    const addChart = (event) => {
+        handleClose();
     };
 
     return (
@@ -61,10 +66,10 @@ function Dashboard() {
                     horizontal: 'left',
                     }}
                 >
-                    <MenuItem onClick={handleClose}>Power</MenuItem>
-                    <MenuItem onClick={handleClose}>Peak Voltage</MenuItem>
-                    <MenuItem onClick={handleClose}>RMS Current</MenuItem>
-                    <MenuItem onClick={handleClose}>Real Time</MenuItem>
+                    <MenuItem onClick={addChart}>Power</MenuItem>
+                    <MenuItem onClick={addChart}>Peak Voltage</MenuItem>
+                    <MenuItem onClick={addChart}>RMS Current</MenuItem>
+                    <MenuItem onClick={addChart}>Real Time</MenuItem>
                 </Menu>
             </div>
         </div>

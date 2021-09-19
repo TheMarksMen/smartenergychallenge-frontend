@@ -1,4 +1,4 @@
-export const theme = {
+export const LightTheme = {
   palette: {
     type: 'light',
     primary: {
