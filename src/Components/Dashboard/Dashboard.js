@@ -10,7 +10,7 @@ import '@fontsource/roboto';
 import Chart from '../Charts/Chart';
 import AreaChart from '../Charts/AreaChartComponent';
 import GridSystem from './GridSystem';
-import { powerData, voltageData, currentData } from './Stud';
+import { powerData, voltageData, currentData } from '../../Stud';
 
 function Dashboard() {
     const theme = useTheme();
@@ -26,10 +26,10 @@ function Dashboard() {
     const [anchorEl, setAnchorEl] = useState(null);
     const open = Boolean(anchorEl);
 
-    const handleClick = (event) => {
+    const handleAddClick = (event) => {
         setAnchorEl(event.currentTarget);
     };
-    const handleClose = () => {
+    const handleAddClose = () => {
         setAnchorEl(null);
     };
 
@@ -87,7 +87,7 @@ function Dashboard() {
         }
 
 
-        handleClose();
+        handleAddClose();
     };
 
     return (
@@ -97,7 +97,7 @@ function Dashboard() {
             </GridSystem>
 
             <Fab
-                onClick={handleClick}
+                onClick={handleAddClick}
                 style = {{
                     position: 'absolute',
                     bottom: 20,
@@ -112,14 +112,14 @@ function Dashboard() {
                     aria-labelledby="positioned-button"
                     anchorEl={anchorEl}
                     open={open}
-                    onClose={handleClose}
+                    onClose={handleAddClose}
                     anchorOrigin={{
-                    vertical: 'top',
-                    horizontal: 'left',
+                        vertical: 'top',
+                        horizontal: 'left',
                     }}
                     transformOrigin={{
-                    vertical: 'top',
-                    horizontal: 'left',
+                        vertical: 'top',
+                        horizontal: 'left',
                     }}
                 >
                     <MenuItem onClick={addChart}>Power</MenuItem>
