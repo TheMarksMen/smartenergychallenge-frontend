@@ -1,14 +1,11 @@
 import * as React from 'react';
 import { AreaChart, CartesianGrid, Tooltip, Area, XAxis, YAxis, Legend } from 'recharts';
-import { Box, Paper, Grid, Button, Menu, MenuItem, Typography } from '@mui/material';
-import { useTheme } from '@mui/styles';
 
 function AreaChartComponent(props) {
-    const theme = useTheme();
-    const { data } = props;
+    console.log(props);
     return (
         <AreaChart 
-            width={500} height={300} data={data}
+            width={500} height={300} data={props.data}
             margin={{ 
                 top: 10, 
                 right: 30, 
@@ -18,16 +15,16 @@ function AreaChartComponent(props) {
         >
             <defs>
                 <linearGradient id="colorPv" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="5%" stopColor={ theme.palette.secondary.main } stopOpacity={0.8}/>
-                    <stop offset="95%" stopColor={ theme.palette.secondary.main } stopOpacity={0}/>
+                    <stop offset="5%" stopColor={ props.color ? props.color : '#DF2935' } stopOpacity={0.8}/>
+                    <stop offset="95%" stopColor={  props.color ? props.color : '#DF2935' } stopOpacity={0}/>
                 </linearGradient>
             </defs>
             <XAxis dataKey="name" />
-            <YAxis label={{ value: 'Power (W)', position: 'insideLeft', angle:-90}}/>
+            <YAxis label={{ value: props.title, position: 'insideLeft', angle:-90, offset: 7}}/>
             <CartesianGrid strokeDasharray="3 3" />
             <Tooltip />
             <Legend />
-            <Area type="monotone" dataKey="pv" stroke={ theme.palette.secondary.main } fillOpacity={1} fill="url(#colorPv)" />
+            <Area type="monotone" dataKey={ props.title === "Power (W)" ?  "pv" : props.title === "Peak Voltage (mV)" ? "vv" : props.title === "RMS Current (mA)" ? "iv" : "pv"} stroke={ props.color } fillOpacity={.2} fill={ props.color }/>
         </AreaChart>
     );
 }

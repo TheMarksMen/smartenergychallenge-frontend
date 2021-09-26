@@ -29,4 +29,66 @@ const powerData = [
         }
     ];
 
-export {powerData};
+const voltageData = [
+        {
+            name: 'January',
+            vv: 3600  
+        },
+        {
+            name: 'February',
+            vv: 2400
+        },
+        {
+            name: 'March',
+            vv: 2400
+        },
+        {
+            name: 'April',
+            vv: 2400
+        },
+        {
+            name: 'May',
+            vv: 2400
+        },
+        {
+            name: 'June',
+            vv: 2400
+        },
+        {
+            name: 'July',
+            vv: 2400
+        }
+    ];
+
+const currentData = [
+        {
+            name: 'January',
+            iv: 1398
+        },
+        {
+            name: 'February',
+            iv: 1200
+        },
+        {
+            name: 'March',
+            iv: 3000
+        },
+        {
+            name: 'April',
+            iv: 1500
+        },
+        {
+            name: 'May',
+            iv: 1600
+        },
+        {
+            name: 'June',
+            iv: 1498
+        },
+        {
+            name: 'July',
+            iv: 1505
+        }
+    ];
+
+export { powerData, voltageData, currentData };
