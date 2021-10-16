@@ -10,7 +10,7 @@ import '@fontsource/roboto';
 import Chart from '../Charts/Chart';
 import AreaChart from '../Charts/AreaChartComponent';
 import GridSystem from './GridSystem';
-import { powerData, voltageData, currentData } from '../../Stud';
+import { powerData, voltageData, currentData } from '../../data';
 
 function Dashboard() {
     const theme = useTheme();
@@ -85,7 +85,6 @@ function Dashboard() {
             default:
                 break;
         }
-
 
         handleAddClose();
     };
