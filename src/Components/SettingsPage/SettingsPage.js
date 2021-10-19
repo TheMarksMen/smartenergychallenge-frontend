@@ -1,6 +1,5 @@
 import React from 'react';
 import { Typography, Box, Grid, TextareaAutosize } from "@mui/material";
-import { voltageData, powerData, currentData } from '../../data';
 
 export default function SettingsPage() {
     return (

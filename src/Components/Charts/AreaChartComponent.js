@@ -2,7 +2,7 @@ import * as React from 'react';
 import { AreaChart, CartesianGrid, Tooltip, Area, XAxis, YAxis, Legend } from 'recharts';
 
 function AreaChartComponent(props) {
-    console.log(props);
+    console.log(props)
     return (
         <AreaChart 
             width={500} height={300} data={props.data}

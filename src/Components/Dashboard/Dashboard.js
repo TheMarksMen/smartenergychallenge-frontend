@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, createContext } from 'react';
+import { request, gql } from 'graphql-request'
 import {
     Menu,
     MenuItem,
@@ -10,16 +11,25 @@ import '@fontsource/roboto';
 import Chart from '../Charts/Chart';
 import AreaChart from '../Charts/AreaChartComponent';
 import GridSystem from './GridSystem';
-import { powerData, voltageData, currentData } from '../../data';
 
 function Dashboard() {
     const theme = useTheme();
+    const powerDataContext = createContext([]);
+    const voltageDataContext = createContext([]);
+    const currentDataContext = createContext([]);
+
+    const [powerData, setPowerData] = useState([]);
+    const [voltageData, setVoltageData] = useState([]);
+    const [currentData, setCurrentData] = useState([]);
+    
     const [layout, setLayout] = useState([{i: '0', x: 6, y: 0, w: 5, h: 3}]);
     const [gridElements, setGridElements] = useState([
         <div key="0">
-            <Chart>
-                <AreaChart title='Power (W)' color={theme.palette.secondary.main} data={powerData} />
-            </Chart>
+            <powerDataContext.Provider value={powerData}>
+                <Chart>
+                    <AreaChart key={powerData} title='Power (W)' color={theme.palette.secondary.main} data={powerData} />
+                </Chart>
+            </powerDataContext.Provider>
         </div>
     ]);
 
@@ -28,6 +38,7 @@ function Dashboard() {
 
     const handleAddClick = (event) => {
         setAnchorEl(event.currentTarget);
+        getData();
     };
     const handleAddClose = () => {
         setAnchorEl(null);
@@ -56,7 +67,7 @@ function Dashboard() {
                 setGridElements([
                     ...gridElements,
                     <div key={gridElements.length}>
-                        <Chart>
+                        <Chart key={voltageData}>
                             <AreaChart title='Peak Voltage (mV)' color={theme.palette.primary.main} data={voltageData} />
                         </Chart>
                     </div>
@@ -89,10 +100,55 @@ function Dashboard() {
         handleAddClose();
     };
 
+    const query = gql`
+    {
+        samples(userID: "eX7xoLyBLAtnA0tpUcwZ") {
+            created
+            peakVoltage
+            RMSCurrent
+            avgPower
+        }
+    }
+    `
+    const getData = () => {
+        request('http://localhost:4000/graphql', query).then((data) => {
+            setPowerData(data.samples.map(d => {
+                return {
+                    name: d.created, 
+                    pv: d.avgPower
+                }
+            }))
+            setVoltageData(data.samples.map(d => {
+                return {
+                    created: d.created, 
+                    data: d.peakVoltage
+                }
+            }))
+            setCurrentData(data.samples.map(d => {
+                return {
+                    created: d.created, 
+                    data: d.RMSCurrent
+                }
+            }))
+            console.log(data)
+        }, reason => {
+            console.error(reason)
+        })
+        setGridElements([
+            ...gridElements
+        ])
+    }
+
     return (
         <div className="App">
             <GridSystem layout={{lg: layout}}>
-                { gridElements }
+                <div key="0">
+                    <powerDataContext.Provider value={powerData}>
+                        <Chart>
+                            <AreaChart key={powerData} title='Power (W)' color={theme.palette.secondary.main} data={powerData} />
+                        </Chart>
+                    </powerDataContext.Provider>
+                </div>
             </GridSystem>
 
             <Fab
