@@ -12,7 +12,7 @@ import Navbar from './Components/Navigation/Navbar';
 import reportWebVitals from './reportWebVitals';
 import { LightTheme, DarkTheme } from './theme';
 
-const theme = createTheme(DarkTheme);
+const theme = createTheme(LightTheme);
 
 ReactDOM.render(
     <React.StrictMode>
