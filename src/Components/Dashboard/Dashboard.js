@@ -1,4 +1,4 @@
-import React, { useState, createContext } from 'react';
+import React, { useState, createContext, useEffect } from 'react';
 import { request, gql } from 'graphql-request'
 import {
     Menu,
@@ -14,9 +14,11 @@ import GridSystem from './GridSystem';
 
 function Dashboard() {
     const theme = useTheme();
+
     const powerDataContext = createContext([]);
     const voltageDataContext = createContext([]);
     const currentDataContext = createContext([]);
+
 
     const [powerData, setPowerData] = useState([]);
     const [voltageData, setVoltageData] = useState([]);
@@ -52,9 +54,11 @@ function Dashboard() {
                 setGridElements([
                     ...gridElements,
                     <div key={gridElements.length}>
-                        <Chart>
-                            <AreaChart title='Power (W)' color={theme.palette.secondary.main} data={powerData} />
-                        </Chart>
+                        <powerDataContext.Provider value={powerData}>
+                            <Chart>
+                                <AreaChart key={powerData} title='Power (W)' color={theme.palette.secondary.main} data={powerData} />
+                            </Chart>
+                        </powerDataContext.Provider>
                     </div>
                 ]);
                 setLayout([
@@ -67,9 +71,11 @@ function Dashboard() {
                 setGridElements([
                     ...gridElements,
                     <div key={gridElements.length}>
-                        <Chart key={voltageData}>
-                            <AreaChart title='Peak Voltage (mV)' color={theme.palette.primary.main} data={voltageData} />
-                        </Chart>
+                        <voltageDataContext.Provider value={voltageData}>
+                            <Chart>
+                                <AreaChart key={voltageData} title='Power (W)' color={theme.palette.secondary.main} data={voltageData} />
+                            </Chart>
+                        </voltageDataContext.Provider>
                     </div>
                 ]);
                 setLayout([
@@ -82,9 +88,11 @@ function Dashboard() {
                 setGridElements([
                     ...gridElements,
                     <div key={gridElements.length}>
-                        <Chart>
-                            <AreaChart title='RMS Current (mA)' color={theme.palette.success.main} data={currentData} />
-                        </Chart>
+                        <currentDataContext.Provider value={currentData}>
+                            <Chart>
+                                <AreaChart title='RMS Current (mA)' color={theme.palette.success.main} data={currentData} />
+                            </Chart>
+                        </currentDataContext.Provider>
                     </div>
                 ]);
                 setLayout([
@@ -113,21 +121,25 @@ function Dashboard() {
     const getData = () => {
         request('http://localhost:4000/graphql', query).then((data) => {
             setPowerData(data.samples.map(d => {
+                const date = new Date(d.created)
                 return {
-                    name: d.created, 
+                    name: date.toLocaleTimeString('en-NZ'), 
+                    date: date,
                     pv: d.avgPower
                 }
+            }).sort(function(a, b) {
+                return a.date - b.date;
             }))
             setVoltageData(data.samples.map(d => {
                 return {
-                    created: d.created, 
-                    data: d.peakVoltage
+                    name: d.created, 
+                    vv: d.peakVoltage
                 }
             }))
             setCurrentData(data.samples.map(d => {
                 return {
                     created: d.created, 
-                    data: d.RMSCurrent
+                    iv: d.RMSCurrent
                 }
             }))
             console.log(data)
@@ -138,6 +150,8 @@ function Dashboard() {
             ...gridElements
         ])
     }
+
+    useEffect(() => {setInterval(getData, 5000)}, [])
 
     return (
         <div className="App">
