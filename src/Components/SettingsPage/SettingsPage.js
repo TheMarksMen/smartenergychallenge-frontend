@@ -1,7 +1,66 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import { request, gql } from 'graphql-request';
 import { Typography, Box, Grid, TextareaAutosize } from "@mui/material";
 
+const query = gql`
+    {
+        samples(userID: "r6pPcyHAzJkFvPzqdlMC") {
+            created
+            peakVoltage
+            RMSCurrent
+            avgPower
+        }
+    }
+    `
+
 export default function SettingsPage() {
+
+    const [powerData, setPowerData] = useState();
+    const [voltageData, setVoltageData] = useState();
+    const [currentData, setCurrentData] = useState();
+
+    const getData = () => {
+        request('http://localhost:4000/graphql', query).then((data) => {
+            setPowerData(data.samples.map(d => {
+                const date = new Date(d.created)
+                return {
+                    name: date.toLocaleTimeString('en-NZ'), 
+                    date: date,
+                    pv: d.avgPower
+                }
+            }).sort(function(a, b) {
+                return a.date - b.date;
+            }))
+            setVoltageData(data.samples.map(d => {
+                const date = new Date(d.created)
+                return {
+                    name: date.toLocaleTimeString('en-NZ'), 
+                    date: date,
+                    pv: d.peakVoltage
+                }
+            }).sort(function(a, b) {
+                return a.date - b.date;
+            }))
+            setCurrentData(data.samples.map(d => {
+                const date = new Date(d.created)
+                return {
+                    name: date.toLocaleTimeString('en-NZ'), 
+                    date: date,
+                    pv: d.RMSCurrent
+                }
+            }).sort(function(a, b) {
+                return a.date - b.date;
+            }))
+        }, reason => {
+            console.error(reason)
+        })
+    }
+
+    useEffect(() => {
+        getData();
+        console.log("getting data")
+    }, []);
+
     return (
         <Grid 
             container
