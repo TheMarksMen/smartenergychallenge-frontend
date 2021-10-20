@@ -4,7 +4,7 @@ import { AreaChart, CartesianGrid, Tooltip, Area, XAxis, YAxis } from 'recharts'
 function AreaChartComponent(props) {
     return (
         <AreaChart 
-            width={500} height={300} data={props.data}
+            width={400} height={200} data={props.data}
             margin={{ 
                 top: 10, 
                 right: 30, 

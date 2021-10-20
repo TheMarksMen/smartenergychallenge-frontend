@@ -7,7 +7,7 @@ function Chart(props) {
     const theme = useTheme();
     return (
         <Box display="inline-block">
-            <Paper style={{ padding: '3em', height: '' }}>
+            <Paper style={{ padding: '1em'}}>
                 { props.children }   
             </Paper>
         </Box>
