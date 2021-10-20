@@ -118,7 +118,7 @@ function Dashboard() {
 
     const query = gql`
     {
-        samples(userID: "eX7xoLyBLAtnA0tpUcwZ") {
+        samples(userID: "r6pPcyHAzJkFvPzqdlMC") {
             created
             peakVoltage
             RMSCurrent
@@ -166,8 +166,7 @@ function Dashboard() {
         ])
     }
 
-    // useEffect(() => {setInterval(getData, 5000)}, [])
-    console.log(generateGridElements())
+    useEffect(() => {getData(); setInterval(getData, 50000)}, [])
 
     return (
         <div className="App">
