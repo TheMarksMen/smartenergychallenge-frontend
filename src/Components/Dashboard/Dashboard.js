@@ -169,13 +169,9 @@ function Dashboard() {
         }, reason => {
             console.error(reason)
         })
-        setGridElements([
-            ...gridElements
-        ])
     }
 
     useEffect(() => {getData(); setInterval(getData, 10000)}, [])
-    console.log(theme);
 
     return (
         <div className={"App" + classes.root}>

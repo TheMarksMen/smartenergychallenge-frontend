@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { request, gql } from 'graphql-request';
-import { Typography, Box, Grid, TextareaAutosize } from "@mui/material";
+import { Typography, Box, Grid, TextareaAutosize, Button } from "@mui/material";
 import { useTheme } from "@mui/styles"
 
 const query = gql`
@@ -14,7 +14,7 @@ const query = gql`
     }
     `
 
-export default function SettingsPage() {
+export default function SettingsPage(props) {
     const theme = useTheme();
 
     const [powerData, setPowerData] = useState();
@@ -79,6 +79,18 @@ export default function SettingsPage() {
                     <Typography variant="h3">
                         Settings
                     </Typography>
+                    <Button 
+                        color='primary' 
+                        variant='contained' 
+                        style={{
+                            margin: "1em 0",
+                        }}
+                        onClick={() => {
+                            props.setDark(!props.dark);
+                        }} 
+                    >
+                        Toggle Theme 
+                    </Button>
 
                     <Typography variant="h5">
                         Power Data
