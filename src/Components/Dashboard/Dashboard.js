@@ -55,7 +55,7 @@ function Dashboard() {
                         <div key={i}>
                             <voltageDataContext.Provider value={voltageData}>
                                 <Chart>
-                                    <AreaChart key={voltageData} title='Voltage (V)' color={theme.palette.secondary.main} data={voltageData} />
+                                    <AreaChart key={voltageData} title='Voltage (V)' color={theme.palette.primary.main} data={voltageData} />
                                 </Chart>
                             </voltageDataContext.Provider>
                         </div>
@@ -66,7 +66,7 @@ function Dashboard() {
                         <div key={i}>
                             <currentDataContext.Provider value={currentData}>
                                 <Chart>
-                                    <AreaChart key={currentData} title='Current (mA)' color={theme.palette.secondary.main} data={currentData} />
+                                    <AreaChart key={currentData} title='Current (mA)' color={theme.palette.success.main} data={currentData} />
                                 </Chart>
                             </currentDataContext.Provider>
                         </div>
