@@ -14,7 +14,8 @@ class MyResponsiveGrid extends React.Component {
             cols={{lg: 3, md: 2, sm: 1}}
             style={{
                 height: '100%',
-                overflow: 'hidden'
+                overflow: 'hidden',
+                background: this.props.bg
             }}
             rowHeight={230}
             compactType="none"

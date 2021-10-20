@@ -10,7 +10,7 @@ import {
     ListItemButton,
     Grid,
     Box,
-    Typography,
+    Typography
 } from '@mui/material';
 import {
     AccountCircle,
@@ -20,12 +20,8 @@ import {
     Add,
     GitHub
 } from '@mui/icons-material';
-import {
-    useTheme
-} from '@mui/styles';
-import {
-    Link
-} from "react-router-dom";
+import { useTheme } from '@mui/styles';
+import { Link } from 'react-router-dom';
 
 export default function Sidebars(props) {
     const theme = useTheme();
@@ -39,31 +35,38 @@ export default function Sidebars(props) {
             >
                 <Box
                     sx={{
-                        width: 250,
+                        width: 250
                     }}
                     role="presentation"
                     onClick={props.toggle('left', false)}
                     onKeyDown={props.toggle('left', false)}
                 >
                     <List>
-                        <ListItemButton component={Link} to='/' key={'Dashboard'}>
+                        <ListItemButton
+                            component={Link}
+                            to="/"
+                            key={'Dashboard'}
+                        >
                             <ListItemIcon>
                                 <Dashboard />
                             </ListItemIcon>
                             <ListItemText primary={'Dashboard'} />
                         </ListItemButton>
-                        <ListItemButton component={Link} to='/settings' key={'Settings'}>
+                        <ListItemButton
+                            component={Link}
+                            to="/settings"
+                            key={'Settings'}
+                        >
                             <ListItemIcon>
                                 <Settings />
                             </ListItemIcon>
                             <ListItemText primary={'Settings'} />
                         </ListItemButton>
-                        <a 
-                            style={{
-                                textDecoration: 'none', 
-                                color: 'black'
+                        <Typography
+                            onClick={() => {
+                                location.href =
+                                    'https://github.com/TheMarksMen/smartenergychallenge-frontend';
                             }}
-                            href="https://github.com/TheMarksMen"
                         >
                             <ListItemButton key={'GitHub'}>
                                 <ListItemIcon>
@@ -71,7 +74,7 @@ export default function Sidebars(props) {
                                 </ListItemIcon>
                                 <ListItemText primary={'View on GitHub'} />
                             </ListItemButton>
-                        </a>
+                        </Typography>
                     </List>
                 </Box>
             </Drawer>
@@ -84,7 +87,7 @@ export default function Sidebars(props) {
             >
                 <Box
                     sx={{
-                        width: 250,
+                        width: 250
                     }}
                     role="presentation"
                     onClick={props.toggle('left', false)}
@@ -99,7 +102,7 @@ export default function Sidebars(props) {
                         spacing={2}
                     >
                         <Grid item>
-                            <Box 
+                            <Box
                                 height="100%"
                                 display="flex"
                                 justifyContent="center"
@@ -113,10 +116,10 @@ export default function Sidebars(props) {
                             </Box>
                         </Grid>
                         <Grid item>
-                            <Typography 
-                                variant="h6" 
+                            <Typography
+                                variant="h6"
                                 css={{
-                                    margin: '0', 
+                                    margin: '0',
                                     padding: '0'
                                 }}
                             >
@@ -143,7 +146,7 @@ export default function Sidebars(props) {
                             </List>
                         </Grid>
                         <Grid item>
-                            <Button variant="contained" color="primary">
+                            <Button variant="contained" color={theme.primary}>
                                 Logout
                             </Button>
                         </Grid>

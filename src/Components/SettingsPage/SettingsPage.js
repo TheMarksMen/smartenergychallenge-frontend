@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { request, gql } from 'graphql-request';
 import { Typography, Box, Grid, TextareaAutosize } from "@mui/material";
+import { useTheme } from "@mui/styles"
 
 const query = gql`
     {
@@ -14,6 +15,7 @@ const query = gql`
     `
 
 export default function SettingsPage() {
+    const theme = useTheme();
 
     const [powerData, setPowerData] = useState();
     const [voltageData, setVoltageData] = useState();
@@ -58,7 +60,6 @@ export default function SettingsPage() {
 
     useEffect(() => {
         getData();
-        console.log("getting data")
     }, []);
 
     return (

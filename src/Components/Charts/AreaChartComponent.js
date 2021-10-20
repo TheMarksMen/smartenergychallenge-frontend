@@ -1,7 +1,9 @@
 import * as React from 'react';
 import { AreaChart, CartesianGrid, Tooltip, Area, XAxis, YAxis } from 'recharts';
+import { useTheme } from '@mui/styles'
 
 function AreaChartComponent(props) {
+    const theme = useTheme();
     return (
         <AreaChart 
             width={400} height={200} data={props.data}
@@ -19,7 +21,7 @@ function AreaChartComponent(props) {
                 </linearGradient>
             </defs>
             <XAxis dataKey="name" />
-            <YAxis label={{ value: props.title, position: 'insideLeft', angle:-90, offset: 7}}/>
+            <YAxis label={{ stroke: theme.palette.text.primary, fill: theme.palette.text.primary, value: props.title, position: 'insideLeft', angle:-90, offset: 14}}/>
             <CartesianGrid strokeDasharray="3 3" />
             <Tooltip/>
             <Area name={ props.title } type="monotone" dataKey={ props.title === "Power (W)" ?  "pv" : props.title === "Peak Voltage (mV)" ? "vv" : props.title === "RMS Current (mA)" ? "iv" : "pv"} stroke={ props.color } fillOpacity={.2} fill={ props.color }/>

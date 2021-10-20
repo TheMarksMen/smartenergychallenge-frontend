@@ -6,7 +6,7 @@ import {
     Fab
 } from '@mui/material';
 import { Add } from '@mui/icons-material';
-import { useTheme } from '@mui/styles';
+import { useTheme, makeStyles } from '@mui/styles';
 import '@fontsource/roboto';
 import Chart from '../Charts/Chart';
 import AreaChart from '../Charts/AreaChartComponent';
@@ -14,6 +14,14 @@ import GridSystem from './GridSystem';
 
 function Dashboard() {
     const theme = useTheme();
+
+    const useStyles = makeStyles((theme) => ({
+        root: {
+            backgroundColor: theme.palette.background.main
+        }
+    }));
+    const classes = useStyles();
+    
 
     const powerDataContext = createContext([]);
     const voltageDataContext = createContext([]);
@@ -166,11 +174,12 @@ function Dashboard() {
         ])
     }
 
-    useEffect(() => {getData(); setInterval(getData, 50000)}, [])
+    useEffect(() => {getData(); setInterval(getData, 10000)}, [])
+    console.log(theme);
 
     return (
-        <div className="App">
-            <GridSystem layout={{lg: layout}}>
+        <div className={"App" + classes.root}>
+            <GridSystem layout={{lg: layout}} bg={theme.palette.background.main}>
                 { generateGridElements() }
             </GridSystem>
 
@@ -179,7 +188,9 @@ function Dashboard() {
                 style = {{
                     position: 'absolute',
                     bottom: 20,
-                    right: 20 
+                    right: 20,
+                    color: "primary",
+                    background: "dark"
                 }}
             >
                 <Add />

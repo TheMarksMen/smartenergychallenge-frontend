@@ -1,12 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import {
-    BrowserRouter as Router, 
-    Switch,
-    Route,
-    Link
-} from 'react-router-dom';
+import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { makeStyles } from '@mui/styles';
 import { indigo, red } from '@mui/material/colors';
 
 import './index.css';
@@ -14,9 +10,9 @@ import Dashboard from './Components/Dashboard/Dashboard';
 import SettingsPage from './Components/SettingsPage/SettingsPage';
 import Navbar from './Components/Navigation/Navbar';
 import reportWebVitals from './reportWebVitals';
-import { LightTheme } from './theme';
+import { LightTheme, DarkTheme } from './theme';
 
-const theme = createTheme(LightTheme);
+const theme = createTheme(DarkTheme);
 
 ReactDOM.render(
     <React.StrictMode>
