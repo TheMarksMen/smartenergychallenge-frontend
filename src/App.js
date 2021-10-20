@@ -30,20 +30,27 @@ function App() {
         },
     });
 
-    console.log(dark);
+    const useStyles = makeStyles({
+        root: {
+            backgroundColor: theme.palette.background.default
+        },
+    });
+    const c = useStyles();
 
     return (
-        <ThemeProvider theme={theme}>
-            <Router>
-                <Navbar />
-                <Route exact path="/">
-                    <Dashboard />
-                </Route>
-                <Route path="/settings">
-                    <SettingsPage dark={dark} setDark={setDark} />
-                </Route>
-            </Router>
-        </ThemeProvider>
+        <div className={c.root}>
+            <ThemeProvider theme={theme}>
+                <Router >
+                    <Navbar />
+                    <Route exact path="/">
+                        <Dashboard />
+                    </Route>
+                    <Route path="/settings">
+                        <SettingsPage dark={dark} setDark={setDark} />
+                    </Route>
+                </Router>
+            </ThemeProvider>
+        </div>
     )
 }
 

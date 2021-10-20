@@ -62,14 +62,19 @@ export default function SettingsPage(props) {
         getData();
     }, []);
 
+    console.log(theme)
+
     return (
         <Grid 
             container
             alignItems="center"
             justifyContent="center"
             spacing={4}     
+            style = {{
+                color: theme.palette.text.primary
+            }}
         >
-            <Grid item>
+            <Grid item >
                 <Box 
                     sx={{
                         p: 4,
