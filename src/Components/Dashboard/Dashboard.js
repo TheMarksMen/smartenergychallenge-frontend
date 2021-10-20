@@ -19,31 +19,64 @@ function Dashboard() {
     const voltageDataContext = createContext([]);
     const currentDataContext = createContext([]);
 
-
     const [powerData, setPowerData] = useState([]);
     const [voltageData, setVoltageData] = useState([]);
     const [currentData, setCurrentData] = useState([]);
     
     const [layout, setLayout] = useState([{i: '0', x: 6, y: 0, w: 5, h: 3}]);
-    const [gridElements, setGridElements] = useState([
-        <div key="0">
-            <powerDataContext.Provider value={powerData}>
-                <Chart>
-                    <AreaChart key={powerData} title='Power (W)' color={theme.palette.secondary.main} data={powerData} />
-                </Chart>
-            </powerDataContext.Provider>
-        </div>
-    ]);
+    const [gridElements, setGridElements] = useState(["Power"]);
 
     const [anchorEl, setAnchorEl] = useState(null);
     const open = Boolean(anchorEl);
 
     const handleAddClick = (event) => {
         setAnchorEl(event.currentTarget);
-        getData();
     };
     const handleAddClose = () => {
         setAnchorEl(null);
+    };
+
+    const generateGridElements = () => {
+        return gridElements.map((e, i) => {
+            switch (e) {
+                case "Power":
+                    return (
+                        <div key={i}>
+                            <powerDataContext.Provider value={powerData}>
+                                <Chart>
+                                    <AreaChart key={powerData} title='Power (W)' color={theme.palette.secondary.main} data={powerData} />
+                                </Chart>
+                            </powerDataContext.Provider>
+                        </div>
+                    )
+
+                case "Voltage":
+                    return (
+                        <div key={i}>
+                            <voltageDataContext.Provider value={voltageData}>
+                                <Chart>
+                                    <AreaChart key={voltageData} title='Voltage (V)' color={theme.palette.secondary.main} data={voltageData} />
+                                </Chart>
+                            </voltageDataContext.Provider>
+                        </div>
+                    )
+
+                case "Current":
+                    return (
+                        <div key={i}>
+                            <currentDataContext.Provider value={currentData}>
+                                <Chart>
+                                    <AreaChart key={currentData} title='Current (mA)' color={theme.palette.secondary.main} data={currentData} />
+                                </Chart>
+                            </currentDataContext.Provider>
+                        </div>
+                    )
+            
+                default:
+                    break;
+            }
+
+        })
     };
 
     const addChart = (event) => {
@@ -53,51 +86,21 @@ function Dashboard() {
             case 'Power':
                 setGridElements([
                     ...gridElements,
-                    <div key={gridElements.length}>
-                        <powerDataContext.Provider value={powerData}>
-                            <Chart>
-                                <AreaChart key={powerData} title='Power (W)' color={theme.palette.secondary.main} data={powerData} />
-                            </Chart>
-                        </powerDataContext.Provider>
-                    </div>
-                ]);
-                setLayout([
-                    ...layout,
-                    {i: layout.length, x: 0, y: 0, w:6, h:4 }
+                    'Power'
                 ]);
                 break;
 
             case 'Peak Voltage':
                 setGridElements([
                     ...gridElements,
-                    <div key={gridElements.length}>
-                        <voltageDataContext.Provider value={voltageData}>
-                            <Chart>
-                                <AreaChart key={voltageData} title='Power (W)' color={theme.palette.secondary.main} data={voltageData} />
-                            </Chart>
-                        </voltageDataContext.Provider>
-                    </div>
-                ]);
-                setLayout([
-                    ...layout,
-                    {i: layout.length, x: 0, y: 0, w:6, h:4 }
+                    'Voltage'
                 ]);
                 break;
 
             case 'RMS Current':
                 setGridElements([
                     ...gridElements,
-                    <div key={gridElements.length}>
-                        <currentDataContext.Provider value={currentData}>
-                            <Chart>
-                                <AreaChart title='RMS Current (mA)' color={theme.palette.success.main} data={currentData} />
-                            </Chart>
-                        </currentDataContext.Provider>
-                    </div>
-                ]);
-                setLayout([
-                    ...layout,
-                    {i: layout.length, x: 0, y: 0, w:6, h:4 }
+                    "Current"
                 ]);
                 break;
         
@@ -105,12 +108,17 @@ function Dashboard() {
                 break;
         }
 
+        setLayout([
+            ...layout,
+            {i: layout.length, x: 0, y: 0, w:6, h:4 }
+        ]);
+
         handleAddClose();
     };
 
     const query = gql`
     {
-        samples(userID: "eX7xoLyBLAtnA0tpUcwZ") {
+        samples(userID: "r6pPcyHAzJkFvPzqdlMC") {
             created
             peakVoltage
             RMSCurrent
@@ -131,18 +139,25 @@ function Dashboard() {
                 return a.date - b.date;
             }))
             setVoltageData(data.samples.map(d => {
+                const date = new Date(d.created)
                 return {
-                    name: d.created, 
-                    vv: d.peakVoltage
+                    name: date.toLocaleTimeString('en-NZ'), 
+                    date: date,
+                    pv: d.peakVoltage
                 }
+            }).sort(function(a, b) {
+                return a.date - b.date;
             }))
             setCurrentData(data.samples.map(d => {
+                const date = new Date(d.created)
                 return {
-                    created: d.created, 
-                    iv: d.RMSCurrent
+                    name: date.toLocaleTimeString('en-NZ'), 
+                    date: date,
+                    pv: d.RMSCurrent
                 }
+            }).sort(function(a, b) {
+                return a.date - b.date;
             }))
-            console.log(data)
         }, reason => {
             console.error(reason)
         })
@@ -151,18 +166,12 @@ function Dashboard() {
         ])
     }
 
-    useEffect(() => {setInterval(getData, 5000)}, [])
+    useEffect(() => {getData(); setInterval(getData, 50000)}, [])
 
     return (
         <div className="App">
             <GridSystem layout={{lg: layout}}>
-                <div key="0">
-                    <powerDataContext.Provider value={powerData}>
-                        <Chart>
-                            <AreaChart key={powerData} title='Power (W)' color={theme.palette.secondary.main} data={powerData} />
-                        </Chart>
-                    </powerDataContext.Provider>
-                </div>
+                { generateGridElements() }
             </GridSystem>
 
             <Fab
